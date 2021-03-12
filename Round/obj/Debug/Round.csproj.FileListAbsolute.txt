@@ -1,0 +1,7 @@
+C:\Users\www\source\repos\Round\Round\bin\Debug\Round.exe.config
+C:\Users\www\source\repos\Round\Round\bin\Debug\Round.exe
+C:\Users\www\source\repos\Round\Round\bin\Debug\Round.pdb
+C:\Users\www\source\repos\Round\Round\obj\Debug\Round.csprojAssemblyReference.cache
+C:\Users\www\source\repos\Round\Round\obj\Debug\Round.csproj.CoreCompileInputs.cache
+C:\Users\www\source\repos\Round\Round\obj\Debug\Round.exe
+C:\Users\www\source\repos\Round\Round\obj\Debug\Round.pdb
