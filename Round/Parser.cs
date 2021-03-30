@@ -23,17 +23,19 @@ namespace Round
                     {
                         Res[i] = double.Parse(matches[i].Value);
                     }
-                    if (Res[2] < 0)
-                    {
-                        throw new LessThanZero("The radius can only be positive");
-                    }
+                    radiusCheck(Res[2]);
                 }
                 return Res;
             }
-            catch (System.FormatException)
+            catch (FormatException)
             {
                 throw new FormatException("Data contains invalid symbols!");
             }
+        }
+        public void radiusCheck(double radius)
+        {
+            if (radius < 0)
+                throw new LessThanZero("The radius can only be positive");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Round
 {   
     class Program
     {
-        static void radiusCheck(Round round)
+        public static void radiusCheck(Round round)
         {
             if (round.Radius < 0)
                 throw new LessThanZero("The radius can only be positive");
@@ -41,16 +41,24 @@ namespace Round
             #endregion*/
 
             #region Round from file           
-            var line = fileWorker.Load();  
-            var arrayOfPoint = parser.ParseRawData(line);
+            try
+            {
+                var line = fileWorker.Load();
+                var arrayOfPoint = parser.ParseRawData(line);
 
-            Round roundFromFile = new Round(new Point { X = arrayOfPoint[0], Y = arrayOfPoint[1] }, arrayOfPoint[2]);
-            //roundFromFile.Radius = -5;
-            radiusCheck(roundFromFile);
-
-            //Console.WriteLine();
-
-            Console.WriteLine(roundFromFile.ToString());
+                Round roundFromFile = new Round(new Point { X = arrayOfPoint[0], Y = arrayOfPoint[1] }, arrayOfPoint[2]);
+                //roundFromFile.Radius = -5;
+                radiusCheck(roundFromFile);
+                Console.WriteLine(roundFromFile.ToString());
+            }
+            catch(LessThanZero e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
             #endregion
 
             Console.ReadLine();
