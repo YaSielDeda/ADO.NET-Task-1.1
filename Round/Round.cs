@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,9 @@ namespace Round
 {
     public class Round
     {
+        [JsonIgnore]
         public double Length => 2 * Math.PI * Radius;
+        [JsonIgnore]
         public double Square => Math.PI * Math.Pow(Radius, 2);
         public double Radius { get; set; }
         public Point Center { get; set; }
@@ -23,7 +26,7 @@ namespace Round
         }
         public override string ToString()
         {
-            return string.Format("Round with center in points x: {0}, y: {1} and radius: {2}", Center.X, Center.Y, Radius);
+            return $"Round with center in points x: {Center.X}, y: {Center.Y} and radius: {Radius}";
         }
     }
 }

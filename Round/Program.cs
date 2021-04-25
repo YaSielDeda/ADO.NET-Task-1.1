@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,56 +13,77 @@ using System.Threading.Tasks;
 
 namespace Round
 {   
-    class Program
+    public class Program
     {
-        public static void radiusCheck(Round round)
+        public static void Main(string[] args)
         {
-            if (round.Radius < 0)
-                throw new LessThanZero("The radius can only be positive");
-        }
-        static void Main(string[] args)
-        {
-            FileWorker fileWorker = new FileWorker();
-            Parser parser = new Parser();
-
-            /*#region Empty round
-            Round roundEmpty = new Round();
-            Console.WriteLine(roundEmpty.ToString());
-            roundEmpty.Center.X = 12.5;
-            roundEmpty.Center.Y = 7.3;
-            roundEmpty.Radius = 2.1;
-            fileWorker.PrintFile(roundEmpty);
-            Console.WriteLine();
-            #endregion*/
-
-            /*#region Round with parameters
-            Round roundWithParams = new Round(new Point {x = 2, y = 5 }, 9);
-            roundWithParams.PrintInfo();
-            Console.WriteLine();
-            #endregion*/
-
-            #region Round from file           
-            try
-            {
-                var line = fileWorker.Load();
-                var arrayOfPoint = parser.ParseRawData(line);
-
-                Round roundFromFile = new Round(new Point { X = arrayOfPoint[0], Y = arrayOfPoint[1] }, arrayOfPoint[2]);
-                //roundFromFile.Radius = -5;
-                radiusCheck(roundFromFile);
-                Console.WriteLine(roundFromFile.ToString());
-            }
-            catch(LessThanZero e)
-            {
-                Console.WriteLine("Error: " + e.Message);
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine("Error: " + e.Message);
-            }
-            #endregion
+            WriteRoundToFile();
+            string path = "round.json";
+            Console.WriteLine(CreateRound(path));
 
             Console.ReadLine();
+        }
+        public static Round CreateRound(string path)
+        {
+            Round round = null;
+            RoundWorker fileWorker = new RoundWorker();
+            try
+            {
+                round = fileWorker.GetRound(path);
+            }
+            catch(Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
+            return round;
+        }
+        public static void WriteRoundToFile()
+        {
+            Round round = new Round();
+            RoundWorker fileWorker = new RoundWorker();
+            try
+            {
+                Console.Write("Enter X: ");
+                round.Center.X = double.Parse(Console.ReadLine());
+                Console.Write("Enter Y: ");
+                round.Center.Y = double.Parse(Console.ReadLine());
+                Console.Write("Enter Radius: ");
+                round.Radius = double.Parse(Console.ReadLine());
+                fileWorker.ToFile(round);
+
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine("The file has successfully written!");
+                Console.ResetColor();
+            }
+            catch (Exception e)
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
+        }
+        public static void Serialization()
+        {
+            Round round = new Round(
+                    new Point(
+                        2.1,
+                        1.2
+                        ),
+                    3.7
+                    );
+            JsonSerializer json = new JsonSerializer();
+            using (StreamWriter fs = new StreamWriter("round.json"))
+            {
+                using (JsonWriter jw = new JsonTextWriter(fs))
+                {
+                    json.Serialize(jw, round);
+                }
+            }
         }
     }
 }

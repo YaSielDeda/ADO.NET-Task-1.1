@@ -12,3 +12,6 @@ C:\Users\dolgovdv\Desktop\Round\Round\obj\Debug\Round.csprojResolveAssemblyRefer
 C:\Users\dolgovdv\Desktop\Round\Round\obj\Debug\Round.csproj.CoreCompileInputs.cache
 C:\Users\dolgovdv\Desktop\Round\Round\obj\Debug\Round.exe
 C:\Users\dolgovdv\Desktop\Round\Round\obj\Debug\Round.pdb
+C:\Users\www\source\repos\Round\Round\bin\Debug\Newtonsoft.Json.dll
+C:\Users\www\source\repos\Round\Round\bin\Debug\Newtonsoft.Json.xml
+C:\Users\www\source\repos\Round\Round\obj\Debug\Round.csproj.CopyComplete
